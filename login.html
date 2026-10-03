@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login - M & N Fashions</title><link rel="stylesheet" href="style.css"></head><body>
+<div class="header"><div class="brand"><img class="mini-logo" src="assets/mn-logo.png">M & N Fashions</div></div>
+<div class="form-box"><img class="hero-logo" style="width:120px;height:120px;display:block;margin:auto" src="assets/mn-logo.png"><h2>Login</h2>
+<div id="phoneStep"><input id="phone" type="tel" maxlength="10" placeholder="Enter 10-digit phone number"><button class="small-btn" onclick="sendOTP()">SEND OTP</button></div>
+<div id="otpStep" style="display:none"><p class="note">Enter the 6-digit OTP sent to your phone.</p><div class="otp"><input maxlength="1"><input maxlength="1"><input maxlength="1"><input maxlength="1"><input maxlength="1"><input maxlength="1"></div><button class="small-btn" onclick="verifyOTP()">VERIFY OTP</button><button class="small-btn" style="background:#333" onclick="resend()">RESEND OTP</button><p id="msg" class="note"></p></div>
+<p class="note" style="margin-top:18px">Real SMS OTP requires Firebase/Twilio configuration. This starter UI is ready for that integration.</p></div>
+<script>
+let demoOTP='';
+function sendOTP(){const p=document.getElementById('phone').value.trim();if(!/^[6-9]\\d{9}$/.test(p)){alert('Enter a valid Indian mobile number');return}demoOTP=String(Math.floor(100000+Math.random()*900000));console.log('Demo OTP:',demoOTP);document.getElementById('phoneStep').style.display='none';document.getElementById('otpStep').style.display='block';document.getElementById('msg').textContent='For this demo, check the browser console for the OTP.'}
+function verifyOTP(){let v=[...document.querySelectorAll('.otp input')].map(x=>x.value).join('');if(v===demoOTP){localStorage.setItem('mnUser',document.getElementById('phone').value);location.href='shop.html'}else document.getElementById('msg').textContent='Wrong OTP. Please try again or Resend OTP.'}
+function resend(){sendOTP()}
+</script></body></html>
